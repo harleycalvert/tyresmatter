@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width,initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0">
+    <title>Tyres Matter</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/my_jquery_functions.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/initialTyrePressure.js"></script>
+    <script src="js/pressureChange.js"></script>
+    <script src="js/underOverPressure.js"></script>
+    <script src="js/otherStuff.js"></script>
+    <script src="js/tooltip.js"></script>
+    <link rel="icon" type="images/ico" href="images/Favicon.ico">
+
+  </head>
+
+  <!--this calls the javascript to redirect to a #section-->
+
+  <body id="body" onload="nav_hash();">
+
+    <div id="center_white" class="center_white">
+      <header>
+        <h1>Tyres Matter</h1>
+      </header>
+
+
+      <section id="initialPressure">
+
+        <nav>
+          <ul class="topnav responsive" id="myTopnav">
+            <li class="icon">
+              <a id="initialPressuremenu"> &nbsp; Menu &#9776; &nbsp; </a>
+            </li>
+            <div id="initialPressuredisplay">
+              <li><a href="#introduction">Introduction</a>
+              </li>
+              <li><a href="#initialPressure" id="selectedtab">Inflation Pressure Calculator</a>
+              </li>
+              <li><a href="#pressureChange">Pressure Change Calculator</a>
+              </li>
+              <li><a href="#technical">Technical</a>
+              </li>
+            </div>
+          </ul>
+        </nav>
+        <nav id="desktopnav7">
+          <a class="nav_link" href="#introduction">Introduction</a>
+          <a class="nav_link_selected" href="#initialPressure">Inflation Pressure Calculator</a>
+          <a class="nav_link" href="#pressureChange">Pressure Change Calculator</a>
+          <a class="nav_link" href="#technical">Technical</a>
+        </nav>
+
+        <h2 class="hidden">Inflation Pressure Calculator</h2>
+
+        <div class="shaded">
+
+          <h2>Inflation Pressure Calculator</h2>
+
+          <form id="initialPresureForm" action="javascript:initialTyrePressure();">
+
+            <label class="label alignradiobutton" for="kilograms">Kilograms</label>
+            <input id="kilograms" type="radio" name="weight" checked="checked">
+
+            <label class="label alignradiobutton" for="pounds">Pounds</label>
+            <input id="pounds" type="radio" name="weight">
+            <br>
+
+            <label class="label align" for="curbWeight">Vehicle Weight With No Cargo</label>
+            <input id="curbWeight" class="input input2" type="number" name="curbWeight" min="0" max="9999">
+            <img alt="Information" id="curbweightdisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="curbweightinfo">
+              <p id=questionicon>?</p>
+              The weight of the vehicle specified by the manufacturer when the vehicle is not loaded with either passengers or cargo. This is often referred to as the kerb weight.
+              <br>
+              <br>
+              <button type="button" id="hidecurbweightinfo">Close</button>
+              <br>
+              <br>
+            </article>
+            <br>
+
+            <label class="label align" for="load">Cargo Weight When Inflating Tyres</label>
+            <input id="load" class="input input2" type="number" name="load" min="0" max="99999">
+            <img alt="Information" id="loaddisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="loadinfo">
+              <p id=questionicon1>?</p>
+              Enter a whole number, the total weight of all passengers and cargo the vehicle is carrying when inflating the tyres.
+              <br>
+              <br>
+              <button type="button" id="hideloadinfo">Close</button>
+              <br>
+              <br>
+            </article>
+            <br>
+
+            <label class="label align" for="maxLoad">Maximum Cargo Weight</label>
+            <input id="maxLoad" class="input input2" type="number" name="maxLoad" min="0" max="99999">
+            <img alt="Information" id="maxLoaddisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="maxLoadinfo">
+              <p id=questionicon2>?</p>
+              Enter a whole number, the maximum weight of all passengers and cargo you&#39;re ever likely to carry in the vehicle. If unsure use the maximum weight specified by the manufacturer.
+              <br>
+              <br>
+              <button type="button" id="hidemaxLoadinfo">Close</button>
+              <br>
+              <br>
+            </article>
+
+            <br>
+
+            <label class="label alignradiobutton" for="kPa_1">kPa</label>
+            <input id="kPa_1" type="radio" name="pressure_1">
+
+            <label class="label alignradiobutton" for="psi_1">psi</label>
+            <input id="psi_1" type="radio" name="pressure_1" checked="checked">
+            <br>
+
+            <label class="label align" for="maxPressure">Maximum Pressure</label>
+            <input id="maxPressure" class="input" type="number" name="maxPressure" min="0" max="999">
+            <img alt="Information" id="maxPressuredisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="maxPressureinfo">
+              <p id=questionicon3>?</p>
+              Enter a whole number, the maximum air pressure stamped on the sidewall of the tyre.
+              <br>
+              <br>
+              <button type="button" id="hidemaxPressureinfo">Close</button>
+              <br>
+              <br>
+            </article>
+            <br>
+            <br>
+            <!--
+                        <input id="next" class="button" type=image src=images/Next.png alt="Submit data" formaction="/#pressureChange">
+                        <input class="button" type=image src=images/Results.png alt="Submit data" formaction="/#result">
+                        onclick="goToID_1(this);"
+                        -->
+
+            <button class="button" type=submit formaction="javascript:goToID_1();" title="Proceed to Pressure Change Calculator and prefill Starting Pressure with a calculated value" rel="tooltip">Next</button>
+            <button class="button" type=submit formaction="javascript:goToID_2();" title="Go straight to the results" rel="tooltip">Results</button>
+            <!--<button class="button" type="reset" value="Reset" title="Reset this tab" rel="tooltip">Reset</button>-->
+            <!--<button class="button" type=submit formaction="javascript:hardReset();" title="Reset everything on all tabs" rel="tooltip">Reset</button>-->
+            <button class="button" onclick=hardReset(); title="Reset everything on all tabs" rel="tooltip">Hard Reset</button>
+
+          </form>
+          <br>
+          <article id="errorContainer">
+            <p>&nbsp;<b>Please correct the following errors and try again:</b>
+            </p>
+            <ul>
+            </ul>
+          </article>
+
+          <p class="center">
+            You can use each calculator independently or use both and get a more complete set of results.
+            <br>
+            <br>
+          </p>
+
+        </div>
+
+      </section>
+
+      <section id="pressureChange">
+
+        <nav>
+          <ul class="topnav responsive" id="myTopnav1">
+            <li class="icon">
+              <a id="pressureChangemenu"> &nbsp; Menu &#9776; &nbsp; </a>
+            </li>
+            <div id="pressureChangedisplay">
+              <li><a href="#introduction">Introduction</a>
+              </li>
+              <li><a href="#initialPressure">Inflation Pressure Calculator</a>
+              </li>
+              <li><a href="#pressureChange" id="selectedtab1">Pressure Change Calculator</a>
+              </li>
+              <li><a href="#technical">Technical</a>
+              </li>
+            </div>
+          </ul>
+        </nav>
+
+
+        <nav id="desktopnav1">
+          <a class="nav_link" href="#introduction">Introduction</a>
+          <a class="nav_link" href="#initialPressure">Inflation Pressure Calculator</a>
+          <a class="nav_link_selected" href="#pressureChange">Pressure Change Calculator</a>
+          <a class="nav_link" href="#technical">Technical</a>
+        </nav>
+
+        <h2 class="hidden">Pressure Change Calculator</h2>
+
+        <div class="shaded">
+
+          <h2>Pressure Change Calculator</h2>
+
+          <form id="pressureChangeForm" action="javascript:pressureChange();">
+
+            <label class="label alignradiobutton" for="kPa_2">kPa</label>
+            <input id="kPa_2" type="radio">
+
+            <label class="label alignradiobutton" for="psi_2">psi</label>
+            <input id="psi_2" type="radio" checked="checked">
+            <br>
+
+            <label class="label align" for="pressure">Starting Pressure</label>
+            <input id="pressure" class="input" type="number" name="pressure" min="0" max="999">
+            <img alt="Information" id="pressuredisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="pressureinfo">
+              <p id=questionicon4>?</p>
+              Enter a whole number, the pressure when you last checked or inflated your tyres. If this value cannot be changed, it has been set by Inflation Pressure Calculator.
+              <br>
+              <br>
+              <button type="button" id="hidepressureinfo">Close</button>
+              <br>
+              <br>
+            </article>
+            <br>
+
+            <label class="label align" for="days">Days Between Tyre Check</label>
+            <input id="days" class="input" name="days" type="number" min="0" max="9999" required="">
+            <img alt="Information" id="daysdisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+            <article id="daysinfo">
+              <p id=questionicon5>?</p>
+              Enter a whole number, the number of days between checking tyre pressure.
+              <br>
+              <br>
+              <button type="button" id="hidedaysinfo">Close</button>
+              <br>
+              <br>
+            </article>
+            <br>
+
+            <label class="aligncheckbox" for="includeTemperature">Include Temperature</label>
+            <input id="includeTemperature" type="checkbox" name="includeTemperature" title="Include the starting date and ending date high temperature. This is optional." rel="tooltip">
+            <br>
+            <div id="temperatureDiv">
+              <!-- Used to show and hide when box ticked or not -->
+
+              <label class="label alignradiobutton" for="celsius">Celsius</label>
+              <input id="celsius" type="radio" name="temperature" checked="checked">
+
+              <label class="label alignradiobutton" for="fahrenheit">Fahrenheit</label>
+              <input id="fahrenheit" type="radio" name="temperature">
+              <br>
+
+              <label class="label align" for="startTemperature">Starting Temperature</label>
+              <input id="startTemperature" class="input input2" type="number" name="startTemperature" min="-200" max="200">
+              <img alt="Information" id="startTemperaturedisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+              <article id="startTemperatureinfo">
+                <p id=questionicon6>?</p>
+                Enter a whole number, the high temperature of the starting date. The daily average high for the month may be used here.
+                <br>
+                <br>
+                <button type="button" id="hidestartTemperatureinfo">Close</button>
+                <br>
+                <br>
+              </article>
+              <br>
+
+              <label class="label align" for="endTemperature">Ending Temperature</label>
+              <input id="endTemperature" class="input" type="number" name="endTemperature" min="-200" max="200">
+              <img alt="Information" id="endTemperaturedisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+              <article id="endTemperatureinfo">
+                <p id=questionicon7>?</p>
+                Enter a whole number, the high temperature of the ending date. The daily average high for the month may be used here.
+                <br>
+                <br>
+                <button type="button" id="hideendTemperatureinfo">Close</button>
+                <br>
+                <br>
+              </article>
+              <br>
+            </div>
+
+
+            <label class="aligncheckbox" for="includeAltitude">Include Altitude</label>
+            <input id="includeAltitude" type="checkbox" name="includeAltitude" title="Include the starting location and ending location altitude. This is optional." rel="tooltip">
+            <br>
+            <div id="altitudeDiv">
+              <!-- Used to show and hide when box ticked or not -->
+
+              <label class="label alignradiobutton" for="meters">Metres</label>
+              <input id="meters" type="radio" name="altitude" checked="checked">
+
+              <label class="label alignradiobutton" for="feet">Feet</label>
+              <input id="feet" type="radio" name="altitude">
+              <br>
+
+              <label class="label align" for="startAltitude">Starting Altitude</label>
+              <input id="startAltitude" class="input input2" type="number" name="startAltitude" min="-2000" max="25000">
+              <img alt="Information" id="startAltitudedisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+              <article id="startAltitudeinfo">
+                <p id=questionicon8>?</p>
+                Enter a whole number, the altitude of the starting location.
+                <br>
+                <br>
+                <button type="button" id="hidestartAltitudeinfo">Close</button>
+                <br>
+                <br>
+              </article>
+              <br>
+
+              <label class="label align" for="endAltitude">Ending Altitude</label>
+              <input id="endAltitude" class="input" type="number" name="endAltitude" min="-2000" max="25000">
+              <img alt="Information" id="endAltitudedisplay" class="infoLogo" src="images/info.png" title="Click for help">
+
+              <article id="endAltitudeinfo">
+                <p id=questionicon9>?</p>
+                Enter a whole number, the altitude of the ending location.
+                <br>
+                <br>
+                <button type="button" id="hideendAltitudeinfo">Close</button>
+                <br>
+                <br>
+              </article>
+              <br>
+            </div>
+            <br>
+            <button class="button" type=submit title="Go to the results" rel="tooltip">Results</button>
+            <button class="button" formaction="javascript:reset();" title="Reset this tab without clearing Starting Pressure calculated by Inflation Pressure Calculator" rel="tooltip">Reset</button>
+            <button class="button" onclick=hardReset(); title="Reset everything on all tabs" rel="tooltip">Hard Reset</button>
+
+          </form>
+          <br>
+          <article id="errorContainer1">
+            <p>&nbsp;<b>Please correct the following errors and try again:</b>
+            </p>
+            <ul>
+            </ul>
+          </article>
+
+
+          <p class="center">
+            You can use each calculator independently or use both and get a more complete set of results.
+            <br>
+            <br> To use both calculators together, start with Inflation Pressure Calculator.
+          </p>
+
+        </div>
+
+      </section>
+
+      <section id="result">
+
+        <nav>
+          <ul class="topnav responsive" id="myTopnav2">
+            <li class="icon">
+              <a id="resultmenu"> &nbsp; Menu &#9776; &nbsp; </a>
+            </li>
+            <div id="resultdisplay">
+              <li><a href="#introduction">Introduction</a>
+              </li>
+              <li><a href="#initialPressure">Inflation Pressure Calculator</a>
+              </li>
+              <li><a href="#pressureChange">Pressure Change Calculator</a>
+              </li>
+              <li><a href="#technical">Technical</a>
+              </li>
+              <li><a href="#result" id="selectedtab2">Results</a>
+              </li>
+            </div>
+          </ul>
+        </nav>
+
+
+        <nav id="desktopnav2">
+          <a class="nav_link" href="#introduction">Introduction</a>
+          <a class="nav_link" href="#initialPressure">Inflation Pressure Calculator</a>
+          <a class="nav_link" href="#pressureChange">Pressure Change Calculator</a>
+          <a class="nav_link" href="#technical">Technical</a>
+          <a class="nav_link_selected" href="#result">Results</a>
+        </nav>
+
+        <h2 class="hidden">Results</h2>
+
+        <!-- This div gets filled by JavaScript, it will contain stuff after the user presses the next or result button -->
+        <div class="shaded">
+          <h2>Results</h2>
+          <div class="displayTyreImage1 resultsInline"></div>
+          <div class="resultsInline">
+            <div class="initialPressureResult"></div>
+            <div class="displayPressureResult"></div>
+          </div>
+          <div class="displayTyreImage2 resultsInline"></div>
+        </div>
+
+      </section>
+
+
+      <section id="introduction">
+
+        <nav>
+          <ul class="topnav responsive" id="myTopnav3">
+            <li class="icon">
+              <a id="introductionmenu"> &nbsp; Menu &#9776; &nbsp; </a>
+            </li>
+            <div id="introductiondisplay">
+              <li><a href="#introduction" id="selectedtab3">Introduction</a>
+              </li>
+              <li><a href="#initialPressure">Inflation Pressure Calculator</a>
+              </li>
+              <li><a href="#pressureChange">Pressure Change Calculator</a>
+              </li>
+              <li><a href="#technical">Technical</a>
+              </li>
+            </div>
+          </ul>
+        </nav>
+
+
+        <nav id="desktopnav3">
+          <a class="nav_link_selected" href="#introduction">Introduction</a>
+          <a class="nav_link" href="#initialPressure">Inflation Pressure Calculator</a>
+          <a class="nav_link" href="#pressureChange">Pressure Change Calculator</a>
+          <a class="nav_link" href="#technical">Technical</a>
+        </nav>
+        <h2 class="hidden">Introduction</h2>
+        <div class="shaded">
+
+          <h2>Introduction</h2>
+
+          <h3 class="left">What is Tyres Matter about?</h3>
+
+          <p>Tyres Matter is all about tyre pressure and the affects it has on fuel efficiency and emissions. Tyres lose pressure over time and pressure can change due to temperature and altitude. Tyres lose approximately 2% of pressure each month and as the seasons change and the weather cools these figures may be even greater. This can lead to unnecessary wear and tear on tyres and an increase in fuel consumption and emissions. It is important to check your tyres regularly.</p>
+          <br>
+
+          <h3 class="left">What does Tyres Matter do?</h3>
+
+          <p>Tyres Matter calculates the following things:</p>
+
+          <ul class="ulist">
+            <li>The pressure to which you should inflate your tyres.</li>
+            <li>Change in tyre pressure due to time, temperature, and altitude.</li>
+            <li>Change in fuel efficiency and emissions based on change in tyre pressure.</li>
+          </ul>
+          <br>
+
+          <h3 class="left">Things to consider</h3>
+
+          <ul class="ulist">
+            <li>Tyres should be inflated when they're cold, that is, before driving very far, and in the cool of the morning.</li>
+            <li>An increase in cargo weight means an increase in tyre pressure and vice-versa.</li>
+            <li>When cargo weight is zero, tyre pressure will be at its minimum.</li>
+            <li>When cargo weight is at the maximum specified, tyre pressure will be at the maximum specified.</li>
+            <li>The calculations are intended for sealed roads that are in good condition.</li>
+            <li>If travelling on unsealed roads, or roads that are in poor condition, a lower pressure than which is calculated may be more desirable.</li>
+          </ul>
+          <br>
+
+          <h3 class="left">How to use the calculator</h3>
+
+          <p>The website has two calculators that can be used independently or together.</p>
+
+          <ul>
+            <li>To calculate the pressure to inflate your tyres, use the Inflation Pressure Calculator.</li>
+            <li>To calculate tyre pressure change due to time, temperature, and altitude, use the Pressure Change Calculator.</li>
+            <li>If you want to use both calculators to get a more complete set of results, start with the Inflation Pressure Calculator, it will calculate the Starting Pressure for the Pressure Change Calculator for you.</li>
+          </ul>
+          <br>
+
+          <p>For technical information about how each calculation is made, visit the Technical tab.</p>
+
+        </div>
+      </section>
+
+
+      <section id="technical">
+
+        <nav>
+          <ul class="topnav responsive" id="myTopnav4">
+            <li class="icon">
+              <a id="technicalmenu"> &nbsp; Menu &#9776; &nbsp; </a>
+            </li>
+            <div id="technicaldisplay">
+              <li><a href="#introduction">Introduction</a>
+              </li>
+              <li><a href="#initialPressure">Inflation Pressure Calculator</a>
+              </li>
+              <li><a href="#pressureChange">Pressure Change Calculator</a>
+              </li>
+              <li><a href="#technical" id="selectedtab4">Technical</a>
+              </li>
+            </div>
+          </ul>
+        </nav>
+
+
+        <nav id="desktopnav4">
+          <a class="nav_link" href="#introduction">Introduction</a>
+          <a class="nav_link" href="#initialPressure">Inflation Pressure Calculator</a>
+          <a class="nav_link" href="#pressureChange">Pressure Change Calculator</a>
+          <a class="nav_link_selected" href="#technical">Technical</a>
+        </nav>
+        <h2 class="hidden">Technical</h2>
+
+        <div class="shaded">
+
+          <h2>Technical</h2>
+
+          <h3 class="left">Inflation Pressure Calculator</h3>
+          <p>The inflation pressure is calculated based on weight and the maximum pressure specified on the side wall of the tyre. As weight increases, tyre pressure increases, and vice-versa. For inflation, we use the formula;</p>
+
+          <ul class="ulist">
+            <li>(Actual Weight / Maximum Weight) * Maximum Pressure = Inflation Pressure
+          </ul>
+
+          <p>For example; </p>
+
+          <ul class="ulist">
+            <li>Vehicle Weight with No Cargo = 1250kg (Honda Prelude S 1992)</li>
+            <li>Maximum Cargo Weight = 470kg (as specified by manufacturer)</li>
+            <li>Maximum Weight = 1250kg + 470kg = 1720kg = 100% Weight</li>
+            <li>Minimum Weight = 1250kg / 1720kg = 72.67% Weight</li>
+            <li>Maximum Pressure = 44 psi (as specified by manufacturer)</li>
+            <li>Minimum Pressure = 44 * 0.7267 = 31.98 psi</li>
+          </ul>
+
+          <p>This gives a pressure range of 31.98 to 44 psi and the actual inflation pressure depends on the weight of the cargo the vehicle is carrying at the time of inflation.</p>
+
+          <p>But wait.... I'm never going to carry 470kg in my car;</p>
+
+          <p>My family weighs 185kg plus 50kg of shopping and 50kg of other stuff = 285kg maximum cargo weight.</p>
+
+          <ul class="ulist">
+            <li>Vehicle Weight with No Cargo = 1250kg (Honda Prelude S 1992)</li>
+            <li>Maximum Cargo Weight = 285kg (as specified by me)</li>
+            <li>Maximum Weight = 1250kg + 285kg = 1535kg = 100% Weight</li>
+            <li>Minimum Weight = 1250kg / 1535kg = 81.43% Weight</li>
+            <li>Maximum Pressure = 44 psi (as specified by manufacturer)</li>
+            <li>Minimum Pressure = 44 * 0.8143 = 35.83 psi</li>
+          </ul>
+
+          <p>This gives a pressure range of 35.83 to 44 psi. This will improve fuel economy, while keeping at or below the maximum pressure specified by the tyre manufacturer.</p>
+
+          <p>The unit of weight or pressure used doesn't matter provided it is used consistently.</p>
+          <br>
+
+          <h3 class="left">Pressure Change Calculator</h3>
+          <p>The main factor for pressure change is time. Tyres lose pressure over time and different tyres lose pressure at different rates. To accommodate this, we've specified best and worst-case scenarios based on a study conducted over six months. The
+            values we've used are 0.75% to 3.125% loss per month.</p>
+
+          <p>Pressure also changes due to temperature and altitude. For temperature, we use the kelvin unit of measure and the formula;</p>
+
+          <ul class="ulist">
+            <li>((temperature change) / (original temperature)) * 100 = % of change</li>
+          </ul>
+
+          <p>For altitude, as air pressure changes, tyre pressure changes in the opposing direction. For example; If air pressure increases by 2 psi, tyre pressure decreases by 2 psi and vice-versa. For the calculation of pressure change due to altitude,
+            air pressure charts that document air pressure at different altitudes in increments of 500 feet were used and all values used in the calculation are currently rounded down to the nearest increment. This can result in minor discrepancies in
+            results.
+          </p>
+          <br>
+
+          <h3 class="left">Fuel Economy and Emissions</h3>
+          <p>Fuel economy affects emissions, the more fuel you use the more emissions you produce, and as tyre pressure decreases fuel consumption increases. Different tyres, driving styles, and driving conditions produce different results when measuring the
+            affect pressure change has on fuel economy and emissions. To accommodate this, we've specified best and worst-case scenarios using quadratic equations based on data produced by UNECE.</p>
+
+        </div>
+      </section>
+    </div>
+
+
+    <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </footer>
+
+  </body>
+
+</html>
